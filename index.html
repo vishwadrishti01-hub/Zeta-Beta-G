@@ -1,333 +1,1430 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZETA BETA G - Premium B.Tech Hub</title>
-    <style>
-        /* Modern Dark Theme Variables */
-        :root {
-            --bg-color: #0d0f12;
-            --surface-color: #1a1d24;
-            --primary-accent: #f6c90e;
-            --secondary-accent: #3a86ff;
-            --text-main: #f8f9fa;
-            --text-muted: #a0aab2;
-            --border-radius: 12px;
-            --glass-bg: rgba(26, 29, 36, 0.7);
-        }
+    <title>ZETA BETA G | Enterprise B.Tech Learning Platform</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Inter for Ultra-Clean SaaS Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        obsidian: {
+                            950: '#040508',
+                            900: '#090B10',
+                            800: '#111520',
+                            700: '#1C2234'
+                        },
+                        brand: {
+                            yellow: '#FACC15',
+                            gold: '#F59E0B',
+                            blue: '#3B82F6',
+                            indigo: '#6366F1',
+                            purple: '#8B5CF6'
+                        }
+                    }
+                }
+            }
         }
+    </script>
+
+    <style>
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 9999px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366F1; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
+            transition: background-color 0.35s ease, color 0.35s ease;
             overflow-x: hidden;
         }
 
-        /* Navbar */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        /* Ambient SaaS Mesh Background */
+        .mesh-bg {
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+                radial-gradient(at 85% 20%, rgba(250, 204, 21, 0.08) 0px, transparent 45%),
+                radial-gradient(at 50% 85%, rgba(59, 130, 246, 0.10) 0px, transparent 50%);
         }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: 1px;
-        }
-        .logo span { color: var(--primary-accent); }
-
-        .menu-btn {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .menu-btn:hover {
-            background: rgba(255,255,255,0.1);
+        .dark .mesh-bg {
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(99, 102, 241, 0.16) 0px, transparent 50%),
+                radial-gradient(at 85% 20%, rgba(250, 204, 21, 0.09) 0px, transparent 45%),
+                radial-gradient(at 50% 85%, rgba(139, 92, 246, 0.14) 0px, transparent 50%);
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 120px 5% 60px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, #fff, var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 30px;
+        /* Subtle Grid Overlay */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
         }
 
-        /* Founder Section */
-        .founder-card {
-            background: var(--surface-color);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            text-align: center;
-            max-width: 400px;
-            margin: 0 auto 50px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        /* Enterprise Glass Surface */
+        .saas-card {
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .founder-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary-accent);
-            margin-bottom: 15px;
-        }
-        .founder-card h3 { color: var(--primary-accent); margin-bottom: 5px; }
-        .founder-card p { font-size: 0.9rem; color: var(--text-muted); }
-
-        /* Main Content Grid */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 0 5% 60px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .saas-card:hover {
+            transform: translateY(-3px);
         }
 
-        .card {
-            background: var(--surface-color);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s ease;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .card h2 { margin-bottom: 15px; font-size: 1.4rem; color: var(--primary-accent); }
-        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
-        
-        .btn {
-            display: inline-block;
-            background: var(--secondary-accent);
-            color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: 0.3s;
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            text-align: center;
-        }
-        .btn:hover { background: #2b6ad4; }
-
-        /* Study Material UI */
-        .subject-list { display: none; margin-top: 15px; }
-        .subject-item {
-            background: rgba(0,0,0,0.2);
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .subject-title { font-weight: 600; font-size: 0.95rem; }
-        
-        .unit-free { color: #2ecc71; font-size: 0.8rem; border: 1px solid #2ecc71; padding: 2px 6px; border-radius: 4px; }
-        .unit-locked { color: #e74c3c; font-size: 0.8rem; border: 1px solid #e74c3c; padding: 2px 6px; border-radius: 4px; cursor: pointer; }
-
-        /* Modal / Popup for Payment */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+        /* View Transition Animation */
+        .view-section {
             display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            backdrop-filter: blur(5px);
+            animation: fadeInView 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .modal-content {
-            background: var(--surface-color);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+        .view-section.active {
+            display: block;
         }
-        .modal-content h3 { color: var(--primary-accent); margin-bottom: 10px; }
-        .qr-code { width: 200px; height: 200px; object-fit: contain; margin: 20px auto; border-radius: 8px; background: #fff; padding: 10px; }
-        .close-btn { margin-top: 20px; background: #444; }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px 5%;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        footer span { color: #e74c3c; }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .grid-container { grid-template-columns: 1fr; }
+        @keyframes fadeInView {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900 dark:bg-obsidian-950 dark:text-slate-100 antialiased selection:bg-brand-indigo selection:text-white min-h-screen flex flex-col mesh-bg bg-grid-pattern">
 
-    <header>
-        <div class="logo">ZETA <span>BETA G</span></div>
-        <button class="menu-btn" onclick="alert('Menu & Navigation Panel Coming Soon!')">Menu ☰</button>
+    <!-- ==================== TOP STICKY HEADER ==================== -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/85 dark:bg-obsidian-950/85 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Crisp ZETA BETA G White-Surface Emblem & Wordmark -->
+            <div onclick="switchMainView('home')" class="flex items-center gap-3.5 cursor-pointer group">
+                <!-- White/Bright Emblem Box so logo stands out sharply in both Light and Dark mode -->
+                <div class="relative w-12 h-12 rounded-2xl bg-white shadow-md border-2 border-amber-400/80 flex items-center justify-center p-1.5 group-hover:scale-105 transition-transform">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <defs>
+                            <linearGradient id="zbgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#F59E0B" />
+                                <stop offset="100%" stop-color="#2563EB" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Graduation Cap + Gear Emblem -->
+                        <circle cx="50" cy="52" r="38" fill="#0F172A"/>
+                        <path d="M50 18 L82 32 L50 46 L18 32 Z" fill="#FACC15"/>
+                        <path d="M32 39 L32 52 C32 58 68 58 68 52 L68 39" fill="none" stroke="#FACC15" stroke-width="4" stroke-linecap="round"/>
+                        <text x="50" y="77" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="26" text-anchor="middle" fill="#FFFFFF">βG</text>
+                    </svg>
+                    <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-brand-blue border-2 border-white flex items-center justify-center text-[8px] text-white font-bold">✓</span>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">ZETA</span>
+                        <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-amber-500">BETA</span>
+                        <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-tight px-1.5 py-0.5 rounded-md bg-brand-blue text-white text-base sm:text-lg leading-none">G</span>
+                    </div>
+                    <p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 tracking-wide uppercase">RGPV & LNCT Academic Portal</p>
+                </div>
+            </div>
+
+            <!-- Center Quick Navigation Pills (Desktop) -->
+            <nav class="hidden lg:flex items-center gap-1.5 bg-slate-100/90 dark:bg-obsidian-800/90 p-1.5 rounded-2xl border border-slate-200/70 dark:border-slate-700/70">
+                <button onclick="switchMainView('home')" data-nav="home" class="top-nav-pill px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-white dark:bg-obsidian-900 text-slate-900 dark:text-white shadow-sm">
+                    Overview
+                </button>
+                <button onclick="switchMainView('study')" data-nav="study" class="top-nav-pill px-4 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+                    Study Material (Sem 1–8)
+                </button>
+                <button onclick="switchMainView('youtube')" data-nav="youtube" class="top-nav-pill px-4 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+                    Video Lectures
+                </button>
+                <button onclick="switchMainView('gallery')" data-nav="gallery" class="top-nav-pill px-4 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+                    Campus Gallery
+                </button>
+                <button onclick="switchMainView('blog')" data-nav="blog" class="top-nav-pill px-4 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+                    Daily Blog
+                </button>
+            </nav>
+
+            <!-- Right Controls: Live Learners Counter, Theme Switcher, Corner Drawer Trigger -->
+            <div class="flex items-center gap-2.5 sm:gap-3.5">
+                <!-- Live Active Students Badge -->
+                <div class="hidden sm:flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/25 px-3.5 py-1.5 rounded-full">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-xs font-mono font-semibold text-emerald-700 dark:text-emerald-300"><span id="live-counter">148</span> STUDYING</span>
+                </div>
+
+                <!-- Light / Dark Mode Button -->
+                <button onclick="toggleThemeMode()" title="Switch Light / Dark Theme" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-amber-400 hover:border-brand-indigo transition-all">
+                    <i id="theme-toggle-icon" class="fas fa-sun text-sm"></i>
+                </button>
+
+                <!-- Corner Drawer Trigger Button -->
+                <button onclick="toggleSideDrawer(true)" class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-heading font-bold text-xs sm:text-sm shadow-sm hover:opacity-90 transition-all">
+                    <i class="fas fa-grid-2"></i>
+                    <span class="fas fa-bars"></span>
+                    <span>Menu</span>
+                </button>
+            </div>
+        </div>
     </header>
 
-    <section class="hero">
-        <h1>Decode Engineering Together</h1>
-        <p>Your ultimate digital archive for RGPV & LNCT daily B.Tech notes, video lectures, and campus life memories.</p>
-        
-        <div class="founder-card">
-            <!-- यहाँ आपकी 'founder.png' फोटो फिक्स कर दी गई है -->
-            <img src="founder.png" alt="Founder" class="founder-img" onerror="this.src='https://via.placeholder.com/120x120/1a1d24/f6c90e?text=Founder'">
-            <h3>Founder / Creator</h3>
-            <p>B.Tech Scholar | Simplifying Concepts</p>
-        </div>
-    </section>
+    <!-- ==================== SLIDE-OUT NAVIGATION DRAWER (UPPER/LOWER CORNER TRIGGERED) ==================== -->
+    <div id="drawer-backdrop" onclick="toggleSideDrawer(false)" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+    
+    <aside id="side-drawer" class="fixed top-0 right-0 h-full w-full max-w-sm bg-white dark:bg-obsidian-900 border-l border-slate-200 dark:border-slate-800 z-50 transform translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between p-6 shadow-2xl">
+        <div>
+            <!-- Drawer Header -->
+            <div class="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-400 text-slate-950 font-heading font-extrabold flex items-center justify-center">βG</div>
+                    <div>
+                        <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white">Navigation Hub</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Select a module to open</p>
+                    </div>
+                </div>
+                <button onclick="toggleSideDrawer(false)" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-obsidian-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
 
-    <div class="grid-container">
-        <!-- Semester 1 Card -->
-        <div class="card">
-            <h2>Semester 1 (RGPV)</h2>
-            <p>Access fundamental engineering subjects.</p>
-            <button class="btn" onclick="toggleSubjects('sem1')">Open Subjects</button>
-            <div id="sem1" class="subject-list">
-                <!-- Subject 1 -->
-                <div class="subject-item">
-                    <div>
-                        <div class="subject-title">Engineering Physics (BT-101)</div>
-                        <div style="margin-top: 5px;">
-                            <span class="unit-free" onclick="alert('Unit 1 PDF & Video Opened!')">Unit 1 (Free)</span>
-                            <span class="unit-locked" onclick="openPaymentModal()">Unit 2-5 (Locked) 🔒</span>
+            <!-- Drawer Links -->
+            <div class="mt-6 space-y-2">
+                <button onclick="switchMainView('home'); toggleSideDrawer(false);" class="w-full flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-obsidian-800 text-left group transition-all">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                            <i class="fas fa-house"></i>
+                        </div>
+                        <div>
+                            <div class="font-heading font-bold text-sm text-slate-900 dark:text-white">Home & Overview</div>
+                            <div class="text-xs text-slate-500">Mission, Learning Outcomes & Founder</div>
                         </div>
                     </div>
-                </div>
-                <!-- Subject 2 -->
-                <div class="subject-item">
-                    <div>
-                        <div class="subject-title">Mathematics - I (BT-102)</div>
-                        <div style="margin-top: 5px;">
-                            <span class="unit-free" onclick="alert('Unit 1 PDF & Video Opened!')">Unit 1 (Free)</span>
-                            <span class="unit-locked" onclick="openPaymentModal()">Unit 2-5 (Locked) 🔒</span>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+
+                <button onclick="switchMainView('study'); toggleSideDrawer(false);" class="w-full flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-obsidian-800 text-left group transition-all">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div>
+                            <div class="font-heading font-bold text-sm text-slate-900 dark:text-white">B.Tech Study Material</div>
+                            <div class="text-xs text-slate-500">Semesters 1 to 8 • RGPV Notes & Videos</div>
                         </div>
                     </div>
-                </div>
-                <div class="subject-item">
-                    <div class="subject-title" style="font-size: 0.85rem; color: #a0aab2;">+ English, BEEE, BME included inside...</div>
+                    <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300">SEM 1-8</span>
+                </button>
+
+                <button onclick="switchMainView('youtube'); toggleSideDrawer(false);" class="w-full flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-obsidian-800 text-left group transition-all">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-all">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div>
+                            <div class="font-heading font-bold text-sm text-slate-900 dark:text-white">YouTube Lecture Search</div>
+                            <div class="text-xs text-slate-500">Search topics & watch on @zetabeta_g</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+
+                <button onclick="switchMainView('gallery'); toggleSideDrawer(false);" class="w-full flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-obsidian-800 text-left group transition-all">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition-all">
+                            <i class="fas fa-camera-retro"></i>
+                        </div>
+                        <div>
+                            <div class="font-heading font-bold text-sm text-slate-900 dark:text-white">Campus & Event Gallery</div>
+                            <div class="text-xs text-slate-500">Garba Night, Friends & LNCT Moments</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+
+                <button onclick="switchMainView('blog'); toggleSideDrawer(false);" class="w-full flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-obsidian-800 text-left group transition-all">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                            <i class="fas fa-pen-nib"></i>
+                        </div>
+                        <div>
+                            <div class="font-heading font-bold text-sm text-slate-900 dark:text-white">Daily Engineering Blog</div>
+                            <div class="text-xs text-slate-500">Exam tips, updates & daily articles</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+
+                <div class="pt-3 mt-3 border-t border-slate-200 dark:border-slate-800">
+                    <button onclick="openAdminModal(); toggleSideDrawer(false);" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-100 dark:bg-obsidian-800 hover:bg-brand-indigo hover:text-white text-left group transition-all">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-brand-indigo/15 text-brand-indigo group-hover:bg-white/20 group-hover:text-white flex items-center justify-center">
+                                <i class="fas fa-sliders"></i>
+                            </div>
+                            <div>
+                                <div class="font-heading font-bold text-sm">Owner / QR Customizer</div>
+                                <div class="text-xs opacity-75">Upload Founder Photo & Payment QR</div>
+                            </div>
+                        </div>
+                        <i class="fas fa-gear text-xs"></i>
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Semester 2 Card -->
-        <div class="card">
-            <h2>Semester 2 (RGPV)</h2>
-            <p>Core subjects for your second semester.</p>
-            <button class="btn" onclick="toggleSubjects('sem2')">Open Subjects</button>
-            <div id="sem2" class="subject-list">
-                <div class="subject-item">
-                    <div>
-                        <div class="subject-title">Engineering Chemistry (BT-201)</div>
-                        <div style="margin-top: 5px;">
-                            <span class="unit-free" onclick="alert('Unit 1 Opened!')">Unit 1 (Free)</span>
-                            <span class="unit-locked" onclick="openPaymentModal()">Unit 2-5 (Locked) 🔒</span>
+        <!-- Drawer Bottom Direct YouTube CTA -->
+        <div class="pt-6 border-t border-slate-200 dark:border-slate-800">
+            <a href="https://youtube.com/@zetabeta_g?si=rs5rmtsydNNbwuP5" target="_blank" class="w-full py-3.5 px-4 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-heading font-bold text-sm flex items-center justify-center gap-2.5 shadow-lg shadow-red-600/25 transition-all">
+                <i class="fab fa-youtube text-lg"></i>
+                <span>Visit @zetabeta_g Channel</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ==================== FLOATING LOWER-RIGHT QUICK MENU BUTTON ==================== -->
+    <div class="fixed bottom-6 right-6 z-40 flex items-center gap-3">
+        <button onclick="toggleSideDrawer(true)" class="group flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-full bg-slate-900 dark:bg-amber-400 text-white dark:text-slate-950 font-heading font-extrabold text-sm shadow-2xl hover:scale-105 transition-all border-2 border-white/20 dark:border-slate-950/20">
+            <span class="w-7 h-7 rounded-full bg-white/15 dark:bg-slate-950/15 flex items-center justify-center">
+                <i class="fas fa-compass"></i>
+            </span>
+            <span>Quick Sections</span>
+        </button>
+    </div>
+
+    <!-- ==================== MAIN MULTI-VIEW CONTAINER ==================== -->
+    <main class="flex-grow">
+
+        <!-- ===================================================================
+             VIEW 1: HOME / OVERVIEW (SPACIOUS, CLEAN, HIGH-END TECH LANDING)
+        ==================================================================== -->
+        <section id="view-home" class="view-section active">
+            
+            <!-- Spacious Hero Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20 lg:pt-20 lg:pb-28">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+                    
+                    <!-- Left Column: Crisp English Pitch -->
+                    <div class="lg:col-span-7 space-y-8">
+                        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <span class="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider bg-amber-400 text-slate-950 rounded-full">RGPV & LNCT</span>
+                            <span class="text-xs font-medium text-slate-600 dark:text-slate-300">Structured B.Tech Notes & Video Curriculum</span>
+                        </div>
+
+                        <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.12] text-slate-900 dark:text-white">
+                            Master B.Tech Engineering with <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-indigo via-brand-blue to-amber-500">Precision Notes.</span>
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl font-normal">
+                            Welcome to <strong class="text-slate-900 dark:text-white font-semibold">Zeta Beta G</strong>. We bridge the gap between complex university syllabi and exam-ready clarity through handwritten lecture notes, unit-wise video breakdowns, and structured semester modules.
+                        </p>
+
+                        <!-- Primary Call To Action Buttons -->
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <button onclick="switchMainView('study')" class="px-7 py-4 rounded-2xl bg-brand-indigo hover:bg-indigo-500 text-white font-heading font-bold text-sm sm:text-base shadow-xl shadow-indigo-500/25 flex items-center gap-3 transition-all">
+                                <span>Open Study Material (Sem 1–8)</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <a href="https://youtube.com/@zetabeta_g?si=rs5rmtsydNNbwuP5" target="_blank" class="px-7 py-4 rounded-2xl bg-white dark:bg-obsidian-800 hover:bg-slate-100 dark:hover:bg-obsidian-700 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 font-heading font-bold text-sm sm:text-base flex items-center gap-3 transition-all shadow-sm">
+                                <i class="fab fa-youtube text-red-600 text-lg"></i>
+                                <span>YouTube Channel</span>
+                            </a>
+                        </div>
+
+                        <!-- Key Metrics Strip -->
+                        <div class="grid grid-cols-3 gap-6 pt-6 border-t border-slate-200/80 dark:border-slate-800/80 max-w-xl">
+                            <div>
+                                <div class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white">8 Sems</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Structured Roadmap</div>
+                            </div>
+                            <div>
+                                <div class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white">10+</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">1st Year Core Subjects</div>
+                            </div>
+                            <div>
+                                <div class="font-heading font-extrabold text-2xl sm:text-3xl text-amber-500">Unit 1 Free</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Instant Preview Access</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Quick-Access Portal Card -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-2xl space-y-6">
+                            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-5">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-11 h-11 rounded-2xl bg-amber-400/15 border border-amber-400/40 flex items-center justify-center text-amber-500 font-heading font-extrabold text-lg">
+                                        βG
+                                    </div>
+                                    <div>
+                                        <h3 class="font-heading font-bold text-slate-900 dark:text-white text-base">Interactive Portal</h3>
+                                        <p class="text-xs text-slate-500">Jump directly into any section</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">v2.5 Live</span>
+                            </div>
+
+                            <!-- Portal Shortcut Cards -->
+                            <div class="space-y-3">
+                                <button onclick="switchMainView('study'); openSemesterSubjects(1);" class="w-full p-4 rounded-2xl bg-slate-50 dark:bg-obsidian-800/70 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 border border-slate-200/70 dark:border-slate-700/70 flex items-center justify-between group transition-all text-left">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-indigo-600 text-white font-heading font-bold text-xs flex items-center justify-center">S1</span>
+                                        <div>
+                                            <div class="font-heading font-bold text-sm text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">Semester 1 Complete Notes</div>
+                                            <div class="text-xs text-slate-500">BT-101 to BT-105 (All 5 RGPV Subjects)</div>
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-up-right-from-square text-xs text-slate-400 group-hover:text-indigo-500"></i>
+                                </button>
+
+                                <button onclick="switchMainView('study'); openSemesterSubjects(2);" class="w-full p-4 rounded-2xl bg-slate-50 dark:bg-obsidian-800/70 hover:bg-amber-50 dark:hover:bg-amber-950/30 border border-slate-200/70 dark:border-slate-700/70 flex items-center justify-between group transition-all text-left">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 font-heading font-bold text-xs flex items-center justify-center">S2</span>
+                                        <div>
+                                            <div class="font-heading font-bold text-sm text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400">Semester 2 Complete Notes</div>
+                                            <div class="text-xs text-slate-500">BT-201 to BT-205 (All 5 RGPV Subjects)</div>
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-up-right-from-square text-xs text-slate-400 group-hover:text-amber-500"></i>
+                                </button>
+
+                                <button onclick="switchMainView('gallery')" class="w-full p-4 rounded-2xl bg-slate-50 dark:bg-obsidian-800/70 hover:bg-purple-50 dark:hover:bg-purple-950/30 border border-slate-200/70 dark:border-slate-700/70 flex items-center justify-between group transition-all text-left">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-purple-600 text-white font-heading font-bold text-xs flex items-center justify-center"><i class="fas fa-images"></i></span>
+                                        <div>
+                                            <div class="font-heading font-bold text-sm text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400">College & Garba Night Gallery</div>
+                                            <div class="text-xs text-slate-500">Interactive campus photo slideshow</div>
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="subject-item">
-                    <div class="subject-title" style="font-size: 0.85rem; color: #a0aab2;">+ Mathematics-II, BCE, BME, Graphics...</div>
+            </div>
+
+            <!-- ==================== WHAT YOU WILL LEARN SECTION ==================== -->
+            <div class="py-20 bg-white/70 dark:bg-obsidian-900/50 border-y border-slate-200/80 dark:border-slate-800/80">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mb-14">
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-indigo">Platform Capabilities</span>
+                        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mt-2">
+                            What You Will Learn & Master
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-400 mt-3 text-base leading-relaxed">
+                            Every module on Zeta Beta G is engineered to save your preparation time while maximizing university exam scores and practical understanding.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
+                        <!-- Card 1 -->
+                        <div class="saas-card bg-white dark:bg-obsidian-900 p-7 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-6">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2.5">Exam-Oriented Handwritten PDFs</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Clean, classroom-tested handwritten notes structured strictly according to RGPV unit-wise syllabus and marking schemes.
+                            </p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="saas-card bg-white dark:bg-obsidian-900 p-7 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-6">
+                                <i class="fas fa-circle-play"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2.5">Conceptual Video Lectures</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Step-by-step derivations, numerical problem solving, and visual explanations linked directly to our official YouTube lectures.
+                            </p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="saas-card bg-white dark:bg-obsidian-900 p-7 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl mb-6">
+                                <i class="fas fa-compass-drafting"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2.5">Complete 1st Year Foundation</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Full coverage of Engineering Chemistry, Physics, Mathematics I & II, BEEE, Engineering Graphics, BME, Civil, and BCE.
+                            </p>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="saas-card bg-white dark:bg-obsidian-900 p-7 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-6">
+                                <i class="fas fa-users-gear"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-2.5">Peer-to-Peer Learning</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Built by an engineering undergraduate for fellow classmates, ensuring explanations address real student doubts without textbook clutter.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== FOUNDER & VISION SECTION (WITH INSTANT PHOTO FIX) ==================== -->
+            <div class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 sm:p-12 lg:p-16 shadow-xl">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <!-- Founder Photo Frame -->
+                        <div class="lg:col-span-5 flex flex-col items-center">
+                            <div class="relative w-64 h-72 sm:w-72 sm:h-80 rounded-3xl p-2 bg-gradient-to-tr from-brand-indigo via-brand-blue to-amber-400 shadow-2xl">
+                                <div class="w-full h-full rounded-2xl overflow-hidden bg-slate-100 dark:bg-obsidian-800 relative">
+                                    <!-- Tries 1000011987.png first, or loads custom uploaded photo from localStorage, or clean studio portrait fallback -->
+                                    <img id="founder-photo-img" 
+                                         src="founder.png" 
+                                         onerror="this.onerror=null; this.src=window.getFallbackFounderAvatar();" 
+                                         alt="Founder of Zeta Beta G" 
+                                         class="w-full h-full object-cover object-top">
+                                </div>
+                                <!-- Floating Verified Badge -->
+                                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1.5 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-heading font-bold text-xs shadow-lg flex items-center gap-2">
+                                    <i class="fas fa-circle-check text-amber-400 dark:text-indigo-600"></i>
+                                    <span>Founder • Zeta Beta G</span>
+                                </div>
+                            </div>
+
+                            <!-- Direct 1-Click Photo Upload Button so user NEVER sees a broken image -->
+                            <div class="mt-7 flex items-center gap-3">
+                                <label for="quick-founder-upload" class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-obsidian-800 hover:bg-brand-indigo hover:text-white text-slate-700 dark:text-slate-300 text-xs font-semibold transition-all border border-slate-200 dark:border-slate-700">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Set / Update Founder Photo</span>
+                                </label>
+                                <input id="quick-founder-upload" type="file" accept="image/*" class="hidden" onchange="handleFounderPhotoUpload(event)">
+                            </div>
+                        </div>
+
+                        <!-- Founder Story & Mission -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider">
+                                Leadership & Academic Vision
+                            </div>
+
+                            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white leading-tight">
+                                Built for RGPV & LNCT Engineers, Designed for Academic Excellence.
+                            </h2>
+
+                            <p class="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
+                                Engineering education moves fast, and finding reliable, well-structured notes right before mid-sems or university exams shouldn't be a struggle. I started <strong class="text-slate-900 dark:text-white">Zeta Beta G</strong> to organize my personal classroom notes and video explanations into a single, accessible digital hub.
+                            </p>
+
+                            <p class="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
+                                Every subject module on this platform offers its first unit completely free so you can experience the clarity of our notes and lectures firsthand before unlocking the complete semester bundle.
+                            </p>
+
+                            <div class="pt-4 flex flex-wrap items-center gap-4">
+                                <button onclick="switchMainView('study')" class="px-6 py-3.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-heading font-bold text-sm hover:opacity-90 transition-all">
+                                    Browse Semester Notes
+                                </button>
+                                <button onclick="switchMainView('gallery')" class="px-6 py-3.5 rounded-xl bg-slate-100 dark:bg-obsidian-800 text-slate-700 dark:text-slate-200 font-heading font-bold text-sm hover:bg-slate-200 dark:hover:bg-obsidian-700 transition-all">
+                                    View Campus Gallery
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 2: STUDY MATERIAL HUB (DRILL-DOWN: 8 SEMESTERS -> 5 SUBJECTS -> 5 UNITS WITH LOCK/QR)
+        ==================================================================== -->
+        <section id="view-study" class="view-section py-12 sm:py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Top Breadcrumb & Back Navigation -->
+                <div class="flex flex-wrap items-center justify-between gap-4 pb-8 mb-10 border-b border-slate-200 dark:border-slate-800">
+                    <div>
+                        <div class="flex items-center gap-2 text-xs font-semibold text-brand-indigo uppercase tracking-wider mb-2">
+                            <span class="cursor-pointer hover:underline" onclick="resetStudyHierarchy()">All Semesters (1–8)</span>
+                            <span id="breadcrumb-sem" class="hidden">/ <span></span></span>
+                            <span id="breadcrumb-sub" class="hidden">/ <span></span></span>
+                        </div>
+                        <h2 id="study-view-title" class="font-heading font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white">
+                            Select Your B.Tech Semester
+                        </h2>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="study-back-btn" onclick="handleStudyBack()" class="hidden px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-obsidian-800 text-slate-800 dark:text-white font-heading font-bold text-xs sm:text-sm flex items-center gap-2 hover:bg-brand-indigo hover:text-white transition-all">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Back</span>
+                        </button>
+                        <button onclick="openAdminModal()" class="px-4 py-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 font-heading font-bold text-xs flex items-center gap-2 hover:bg-amber-500 hover:text-slate-950 transition-all">
+                            <i class="fas fa-qrcode"></i>
+                            <span>Payment QR Settings</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 1: 8 SEMESTERS GRID -->
+                <div id="step-semesters-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Populated dynamically via JS for Semesters 1 to 8 -->
+                </div>
+
+                <!-- STEP 2: SUBJECTS LIST FOR SELECTED SEMESTER (5 SUBJECTS EACH FOR SEM 1 & 2, OR COMING SOON FOR SEM 3-8) -->
+                <div id="step-subjects-grid" class="hidden">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+                <!-- STEP 3: 5 CHAPTERS / UNITS LIST (UNIT 1 FREE, UNITS 2-5 LOCKED WITH QR PAYMENT) -->
+                <div id="step-chapters-list" class="hidden">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 3: YOUTUBE VIDEO HUB (SEARCHABLE + DIRECT CHANNEL INTEGRATION)
+        ==================================================================== -->
+        <section id="view-youtube" class="view-section py-12 sm:py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="bg-gradient-to-r from-red-600 to-rose-700 rounded-3xl p-8 sm:p-12 text-white shadow-xl mb-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+                    <div class="space-y-3 max-w-2xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-xs font-bold uppercase tracking-wider">
+                            <i class="fab fa-youtube"></i> Official Video Repository
+                        </div>
+                        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl">Zeta Beta G Video Lectures</h2>
+                        <p class="text-white/85 text-sm sm:text-base leading-relaxed">
+                            Search any B.Tech first-year topic below or jump straight to our official YouTube channel <strong class="underline">@zetabeta_g</strong> to watch full playlists.
+                        </p>
+                    </div>
+                    <a href="https://youtube.com/@zetabeta_g?si=rs5rmtsydNNbwuP5" target="_blank" class="px-7 py-4 rounded-2xl bg-white text-red-600 font-heading font-extrabold text-sm sm:text-base shadow-lg hover:scale-105 transition-all flex items-center gap-3 shrink-0">
+                        <i class="fab fa-youtube text-xl"></i>
+                        <span>Open @zetabeta_g on YouTube</span>
+                    </a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="max-w-2xl mx-auto mb-12">
+                    <div class="relative flex items-center">
+                        <i class="fas fa-search absolute left-5 text-slate-400"></i>
+                        <input id="yt-search-input" oninput="filterYouTubeLectures()" type="text" placeholder="Search lectures by subject or topic (e.g., Matrices, Quantum, Thermodynamics, C++)..." class="w-full pl-12 pr-36 py-4 rounded-2xl bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-brand-indigo shadow-sm">
+                        <button onclick="searchDirectlyOnYouTube()" class="absolute right-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-heading font-bold text-xs transition-all">
+                            Search YouTube
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Cards Grid -->
+                <div id="yt-videos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 4: CAMPUS & EVENT GALLERY (SLIDESHOW + ADD CUSTOM PHOTOS)
+        ==================================================================== -->
+        <section id="view-gallery" class="view-section py-12 sm:py-16">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-indigo">LNCT & College Life</span>
+                        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mt-1">
+                            Campus Memories & Events Slideshow
+                        </h2>
+                    </div>
+
+                    <!-- Add New Campus Photo Button -->
+                    <div>
+                        <label for="gallery-photo-upload" class="cursor-pointer inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-brand-indigo hover:bg-indigo-500 text-white font-heading font-bold text-xs sm:text-sm shadow-lg shadow-indigo-500/20 transition-all">
+                            <i class="fas fa-cloud-arrow-up"></i>
+                            <span>Add Your College Photo</span>
+                        </label>
+                        <input id="gallery-photo-upload" type="file" accept="image/*" class="hidden" onchange="handleAddGalleryPhoto(event)">
+                    </div>
+                </div>
+
+                <!-- Interactive Slideshow Stage -->
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-4 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-2xl">
+                    <div class="relative h-[340px] sm:h-[460px] lg:h-[520px] rounded-2xl overflow-hidden bg-slate-900">
+                        <img id="gallery-active-img" src="" alt="College Memory" class="w-full h-full object-cover transition-all duration-500">
+                        
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 sm:p-8 flex items-end justify-between">
+                            <div>
+                                <span id="gallery-active-tag" class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-heading font-extrabold text-xs uppercase">Campus Event</span>
+                                <h3 id="gallery-active-title" class="font-heading font-extrabold text-2xl sm:text-3xl text-white mt-2">Garba Night Celebration</h3>
+                                <p id="gallery-active-desc" class="text-slate-300 text-sm mt-1">Unforgettable moments with college batchmates and friends.</p>
+                            </div>
+                            <div id="gallery-counter-badge" class="font-mono text-xs text-white/80 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full">
+                                1 / 3
+                            </div>
+                        </div>
+
+                        <!-- Prev / Next Controls -->
+                        <button onclick="changeGallerySlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition-all">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button onclick="changeGallerySlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition-all">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Thumbnails Strip -->
+                    <div id="gallery-thumbs" class="flex items-center gap-3 overflow-x-auto pt-4 pb-1">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             VIEW 5: DAILY ENGINEERING BLOG
+        ==================================================================== -->
+        <section id="view-blog" class="view-section py-12 sm:py-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-indigo">Daily Updates & Insights</span>
+                        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mt-1">
+                            Engineering Study Blog
+                        </h2>
+                    </div>
+                    <button onclick="toggleBlogComposer()" class="px-5 py-3 rounded-2xl bg-brand-indigo text-white font-heading font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-indigo-500/20">
+                        <i class="fas fa-plus"></i>
+                        <span>Write New Blog Post</span>
+                    </button>
+                </div>
+
+                <!-- Blog Composer Form (Hidden by default) -->
+                <div id="blog-composer" class="hidden bg-white dark:bg-obsidian-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 mb-10 space-y-4 shadow-lg">
+                    <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Publish a Daily Study Update</h3>
+                    <input id="blog-title-input" type="text" placeholder="Post Title (e.g., How to Score 9+ SGPA in RGPV 1st Semester)" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 text-sm">
+                    <textarea id="blog-body-input" rows="4" placeholder="Write your study tips, exam updates, or chapter summaries..." class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 text-sm"></textarea>
+                    <div class="flex justify-end gap-3">
+                        <button onclick="toggleBlogComposer()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-500">Cancel</button>
+                        <button onclick="publishBlogPost()" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold">Publish Post</button>
+                    </div>
+                </div>
+
+                <!-- Blog Posts Feed -->
+                <div id="blog-posts-container" class="space-y-6">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== UPI QR PAYMENT GATEWAY MODAL (FOR LOCKED UNITS 2-5) ==================== -->
+    <div id="payment-modal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative animate-[fadeInView_0.25s_ease-out]">
+            <button onclick="closePaymentModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 dark:bg-obsidian-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-11 h-11 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center text-xl">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-amber-500">Instant Chapter Unlock</span>
+                    <h3 id="pay-modal-unit-title" class="font-heading font-extrabold text-lg text-slate-900 dark:text-white leading-snug">Unlock Unit Notes & Video</h3>
+                </div>
+            </div>
+
+            <!-- Pricing Summary Box -->
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-obsidian-800/90 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-between mb-6">
+                <div>
+                    <div id="pay-modal-subject-name" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Subject Module</div>
+                    <div class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">Complete PDF + Video Explanation</div>
+                </div>
+                <div class="text-right">
+                    <span id="pay-modal-price" class="font-heading font-extrabold text-2xl text-emerald-600 dark:text-emerald-400">₹15</span>
+                    <span class="block text-[10px] text-slate-400">One-time access</span>
+                </div>
+            </div>
+
+            <!-- QR Code Container -->
+            <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-white border-2 border-dashed border-slate-300 mb-5">
+                <img id="payment-qr-img" src="qr.png" alt="Scan UPI QR Code" class="w-48 h-48 object-contain rounded-lg">
+                <p class="text-xs font-mono font-semibold text-slate-700 mt-3">UPI ID: <span id="display-upi-id" class="text-indigo-600">zetabetag@upi</span></p>
+                <span class="text-[11px] text-slate-400 mt-1">Scan with GPay, PhonePe, Paytm, or any UPI App</span>
+            </div>
+
+            <!-- Verification Input -->
+            <div class="space-y-3">
+                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">
+                    Enter 12-Digit UPI Transaction ID (UTR) or Unlock Code:
+                </label>
+                <input id="utr-input" type="text" placeholder="e.g. 412589632145 or ZBG2026" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 text-sm font-mono focus:outline-none focus:border-brand-indigo">
+                <p id="pay-error-msg" class="text-xs text-red-500 hidden">Please enter a valid 12-digit UTR number or unlock passcode.</p>
+                
+                <button onclick="verifyAndUnlockChapter()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-bold text-sm shadow-lg shadow-emerald-600/25 transition-all flex items-center justify-center gap-2">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verify Payment & Unlock Now</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== OWNER / ADMIN CUSTOMIZER MODAL (UPLOAD QR, PHOTO, UPI DETAILS) ==================== -->
+    
+                <!-- Upload Custom QR Code -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700">
+                    <label class="block font-heading font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
+                        1. Upload Your Custom Payment QR Code Image
+                    </label>
+                    <input type="file" accept="image/*" onchange="handleCustomQRUpload(event)" class="text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand-indigo file:text-white hover:file:bg-indigo-500 cursor-pointer">
+                </div>
+
+                <!-- UPI ID & Price -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">Your UPI ID</label>
+                        <input id="admin-upi-input" type="text" placeholder="yourname@okaxis" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">Chapter Price (₹)</label>
+                        <input id="admin-price-input" type="number" value="15" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 text-sm">
+                    </div>
+                </div>
+
+                <!-- Master Unlock Passcode -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">Secret Unlock Passcode (Share with paid students)</label>
+                    <input id="admin-passcode-input" type="text" value="ZBG2026" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 text-sm font-mono">
+                </div>
+
+                <div class="pt-3 flex items-center justify-between gap-3">
+                    <button onclick="resetAllUnlockedChapters()" class="px-4 py-2.5 rounded-xl bg-red-500/10 text-red-500 text-xs font-bold hover:bg-red-500 hover:text-white transition-all">
+                        Reset Locks (Test Mode)
+                    </button>
+                    <button onclick="saveAdminSettings()" class="px-6 py-3 rounded-xl bg-brand-indigo hover:bg-indigo-500 text-white font-heading font-bold text-xs sm:text-sm shadow-lg">
+                        Save Changes
+                    </button>
                 </div>
             </div>
         </div>
-
-        <!-- YouTube Hub -->
-        <div class="card">
-            <h2>Video Lecture Hub</h2>
-            <p>Directly access all my detailed video explanations on YouTube without distractions.</p>
-            <a href="https://youtube.com/@zetabeta_g?si=rs5rmtsydNNbwuP5" target="_blank" class="btn" style="background: #e74c3c;">Visit YouTube Channel ▶</a>
-        </div>
-
-        <!-- Campus Gallery -->
-        <div class="card">
-            <h2>Campus Gallery</h2>
-            <p>Memories from LNCT, Garba Nights, Friends, and Engineering Life.</p>
-            <button class="btn" style="background: var(--text-muted); color: #000;" onclick="alert('Gallery slider will open here. Add your photos soon!')">View Memories 📸</button>
-        </div>
     </div>
 
-    <!-- Payment Gateway Modal -->
-    <div class="modal-overlay" id="paymentModal">
-        <div class="modal-content">
-            <h3>Premium Access 🔒</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">To unlock Units 2-5, complete a one-time support payment of ₹15 to the founder.</p>
-            
-            <!-- यहाँ आपका 'QR.png' फिक्स कर दिया गया है -->
-            <img src="QR.png" alt="UPI QR Code" class="qr-code" onerror="this.src='https://via.placeholder.com/200x200/ffffff/000000?text=QR+Code'">
-            
-            <p style="font-size: 0.85rem; margin-top: 10px;">Scan using PhonePe / GPay / Paytm</p>
-            <button class="btn close-btn" onclick="closePaymentModal()">Close</button>
-        </div>
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast-box" class="fixed bottom-6 left-6 z-50 hidden items-center gap-3 px-5 py-3.5 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-heading font-bold text-xs sm:text-sm shadow-2xl">
+        <i class="fas fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
+        <span id="toast-text">Saved successfully!</span>
     </div>
 
-    <footer>
-        Made with <span>❤️</span> in India | Specially crafted for LNCT & RGPV Students<br>
-        © 2026 ZETA BETA G. All rights reserved.
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-white dark:bg-obsidian-950 border-t border-slate-200/80 dark:border-slate-800/80 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-400 text-slate-950 font-heading font-extrabold flex items-center justify-center text-sm">βG</div>
+                <span class="font-heading font-bold text-sm text-slate-800 dark:text-slate-200">ZETA BETA G</span>
+            </div>
+
+            <div class="text-center space-y-1">
+                <p class="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Made with <i class="fas fa-heart text-red-500 mx-1"></i> in India
+                </p>
+                <p class="text-[11px] font-bold uppercase tracking-widest text-brand-indigo dark:text-amber-400">
+                    Specially crafted for LNCT & RGPV Students
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="https://youtube.com/@zetabeta_g?si=rs5rmtsydNNbwuP5" target="_blank" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-obsidian-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-red-600 transition-colors">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <button onclick="openAdminModal()" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-obsidian-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-brand-indigo transition-colors" title="Admin Settings">
+                    <i class="fas fa-sliders"></i>
+                </button>
+            </div>
+        </div>
     </footer>
 
+    <!-- ==================== APPLICATION LOGIC ==================== -->
     <script>
-        // Toggle Subject List
-        function toggleSubjects(id) {
-            const el = document.getElementById(id);
-            if(el.style.display === "block") {
-                el.style.display = "none";
-            } else {
-                el.style.display = "block";
+        const YOUTUBE_CHANNEL_URL = "https://youtube.com/@zetabeta_g?si=rs5rmtsydNNbwuP5";
+
+        // 1. Clean SVG Fallback for Founder Avatar if local 1000011987.png isn't found in folder
+        window.getFallbackFounderAvatar = function() {
+            const savedPhoto = localStorage.getItem('zbg_founder_photo');
+            if (savedPhoto) return savedPhoto;
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="400" height="480">
+                <defs>
+                    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#1E1B4B"/>
+                        <stop offset="100%" stop-color="#0F172A"/>
+                    </linearGradient>
+                </defs>
+                <rect width="400" height="480" fill="url(#bg)"/>
+                <circle cx="200" cy="175" r="72" fill="#F8FAFC"/>
+                <path d="M85 430 C85 315 315 315 315 430 Z" fill="#F8FAFC"/>
+                <text x="200" y="458" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="bold" fill="#FACC15" text-anchor="middle">CLICK BELOW TO SELECT YOUR PHOTO</text>
+            </svg>`;
+            return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        };
+
+        // Load saved founder photo on startup
+        function initFounderPhoto() {
+            const saved = localStorage.getItem('zbg_founder_photo');
+            if (saved) {
+                document.getElementById('founder-photo-img').src = saved;
             }
         }
 
-        // Modal Functions
-        function openPaymentModal() {
-            document.getElementById('paymentModal').style.display = 'flex';
+        function handleFounderPhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem('zbg_founder_photo', e.target.result);
+                document.getElementById('founder-photo-img').src = e.target.result;
+                showToast("Founder photo updated & saved!");
+            };
+            reader.readAsDataURL(file);
         }
+
+        // 2. Complete RGPV 8-Semester Data (5 Official Subjects in Sem 1 & Sem 2)
+        const rgpvSemesters = [
+            { sem: 1, title: "Semester 1", status: "active", count: "5 Subjects Available", badge: "Active • 1st Year" },
+            { sem: 2, title: "Semester 2", status: "active", count: "5 Subjects Available", badge: "Active • 1st Year" },
+            { sem: 3, title: "Semester 3", status: "upcoming", count: "Core Branch Modules", badge: "2nd Year" },
+            { sem: 4, title: "Semester 4", status: "upcoming", count: "Core Branch Modules", badge: "2nd Year" },
+            { sem: 5, title: "Semester 5", status: "upcoming", count: "Advanced Engineering", badge: "3rd Year" },
+            { sem: 6, title: "Semester 6", status: "upcoming", count: "Advanced Engineering", badge: "3rd Year" },
+            { sem: 7, title: "Semester 7", status: "upcoming", count: "Electives & Major Project", badge: "4th Year" },
+            { sem: 8, title: "Semester 8", status: "upcoming", count: "Internship & Thesis", badge: "4th Year" }
+        ];
+
+        const rgpvSubjects = {
+            1: [
+                {
+                    code: "BT-101",
+                    name: "Engineering Chemistry",
+                    desc: "Water Analysis, Boiler Troubles, Polymers, Lubricants & Spectroscopic Techniques",
+                    units: [
+                        "Unit 1: Water – Analysis, Treatments & Industrial Applications",
+                        "Unit 2: Boiler Problems, Scales, Sludges & Corrosion",
+                        "Unit 3: High Polymers, Rubbers & Biodegradable Polymers",
+                        "Unit 4: Lubricants, Mechanism of Lubrication & Phase Rule",
+                        "Unit 5: Spectroscopic Techniques & Periodic Properties"
+                    ]
+                },
+                {
+                    code: "BT-102",
+                    name: "Mathematics-I",
+                    desc: "Differential Calculus, Partial Derivatives, Definite Integrals, Sequences & Matrices",
+                    units: [
+                        "Unit 1: Calculus – Rolle's Theorem, Mean Value Theorems & Maclaurin Series",
+                        "Unit 2: Partial Differentiation, Euler's Theorem & Jacobians",
+                        "Unit 3: Multiple Integrals, Beta & Gamma Functions",
+                        "Unit 4: Sequences, Infinite Series & Convergence Tests",
+                        "Unit 5: Matrices, Rank, Eigenvalues & Cayley-Hamilton Theorem"
+                    ]
+                },
+                {
+                    code: "BT-103",
+                    name: "English for Communication",
+                    desc: "Professional Grammar, Technical Writing, Reading Comprehension & Business Correspondence",
+                    units: [
+                        "Unit 1: Identifying Common Errors in Writing & Vocabulary Building",
+                        "Unit 2: Nature and Style of Sensible Technical Writing",
+                        "Unit 3: Technical Report Writing, Proposals & Precision",
+                        "Unit 4: Business Correspondence, Resume & Official Letters",
+                        "Unit 5: Oral Communication, Presentation & Group Discussion Skills"
+                    ]
+                },
+                {
+                    code: "BT-104",
+                    name: "Basic Electrical & Electronics Engineering (BEEE)",
+                    desc: "DC/AC Circuits, Transformers, Electrical Machines & Digital/Semiconductor Electronics",
+                    units: [
+                        "Unit 1: DC & AC Circuits – KVL, KCL, Superposition & Three-Phase Systems",
+                        "Unit 2: Magnetic Circuits & Single-Phase Transformer Working",
+                        "Unit 3: DC Machines, Induction Motors & Synchronous Generators",
+                        "Unit 4: Number Systems, Logic Gates & Boolean Algebra",
+                        "Unit 5: Semiconductor Diodes, BJT Configurations & Operational Amplifiers"
+                    ]
+                },
+                {
+                    code: "BT-105",
+                    name: "Engineering Graphics",
+                    desc: "Scales, Conic Sections, Orthographic Projections, Isometric Views & AutoCAD Basics",
+                    units: [
+                        "Unit 1: Principles of Engineering Graphics, Scales & Conic Sections",
+                        "Unit 2: Orthographic Projections of Points, Straight Lines & Planes",
+                        "Unit 3: Projections of Regular Right Solids & Section of Solids",
+                        "Unit 4: Development of Lateral Surfaces & Isometric Projections",
+                        "Unit 5: Overview of Computer Graphics & CAD Layered Drawing"
+                    ]
+                }
+            ],
+            2: [
+                {
+                    code: "BT-201",
+                    name: "Engineering Physics",
+                    desc: "Quantum Mechanics, Wave Optics, Interference, Lasers, Optical Fiber & Dielectrics",
+                    units: [
+                        "Unit 1: Wave Nature of Particles & Schrödinger Wave Equation",
+                        "Unit 2: Wave Optics – Interference, Diffraction & Polarization",
+                        "Unit 3: Introduction to Solids, Kronig-Penney Model & Semiconductors",
+                        "Unit 4: Lasers – Einstein Coefficients, He-Ne, Ruby Laser & Optical Fibers",
+                        "Unit 5: Electrostatics in Vacuum, Dielectrics & Maxwell's Equations"
+                    ]
+                },
+                {
+                    code: "BT-202",
+                    name: "Mathematics-II",
+                    desc: "Ordinary & Partial Differential Equations, Complex Variables & Vector Calculus",
+                    units: [
+                        "Unit 1: Ordinary Differential Equations of First & Higher Orders",
+                        "Unit 2: Differential Equations with Variable Coefficients & Bessel/Legendre",
+                        "Unit 3: Partial Differential Equations – Lagrange & Charpit's Method",
+                        "Unit 4: Functions of Complex Variable, Analytic Functions & Residue Theorem",
+                        "Unit 5: Vector Calculus – Gradient, Divergence, Curl, Green's & Stokes' Theorem"
+                    ]
+                },
+                {
+                    code: "BT-203",
+                    name: "Basic Mechanical Engineering (BME)",
+                    desc: "Engineering Materials, Measurement, Fluids, Thermodynamics & IC Engines",
+                    units: [
+                        "Unit 1: Engineering Materials, Stress-Strain Curve & Cast Iron/Steels",
+                        "Unit 2: Measurement, Vernier Caliper, Micrometer, Lathe & Drilling Machines",
+                        "Unit 3: Fluid Mechanics – Properties, Bernoulli's Equation & Turbines",
+                        "Unit 4: Thermodynamics – Laws of Thermodynamics, Steam Boilers & Draught",
+                        "Unit 5: Reciprocating Machines – Otto, Diesel Cycles & 2-Stroke/4-Stroke IC Engines"
+                    ]
+                },
+                {
+                    code: "BT-204",
+                    name: "Basic Civil Engineering & Mechanics (BCEM)",
+                    desc: "Building Materials, Surveying, Mapping, Concurrent Forces, Centroid & Trusses",
+                    units: [
+                        "Unit 1: Building Materials & Construction – Stones, Bricks, Cement, Concrete",
+                        "Unit 2: Surveying & Positioning – Chain, Compass, Levelling & Theodolite",
+                        "Unit 3: Mapping & Sensing – Contouring, Area Calculation & Remote Sensing",
+                        "Unit 4: Engineering Mechanics – Forces, Equilibrium, Lami's Theorem & Friction",
+                        "Unit 5: Centroid, Moment of Inertia, Shear Force & Bending Moment Diagrams"
+                    ]
+                },
+                {
+                    code: "BT-205",
+                    name: "Basic Computer Engineering (BCE)",
+                    desc: "Computer Organization, Operating Systems, C++ OOPS, Networking & DBMS",
+                    units: [
+                        "Unit 1: Computer Classification, ALU, Memory Hierarchy & MS Office",
+                        "Unit 2: Operating Systems, Algorithms, Flowcharts & Introduction to C++",
+                        "Unit 3: Object Oriented Programming – Classes, Inheritance & Polymorphism",
+                        "Unit 4: Computer Networking, OSI Reference Model, TCP/IP & Cyber Security",
+                        "Unit 5: Database Management Systems (DBMS), SQL Basics & Cloud Computing"
+                    ]
+                }
+            ]
+        };
+
+        // State Variables for Drill-Down Navigation
+        let currentStudyStep = 'semesters'; // 'semesters' | 'subjects' | 'chapters'
+        let selectedSemNumber = null;
+        let selectedSubjectObj = null;
+        let pendingUnlockChapterKey = null;
+
+        // Render Step 1: All 8 Semesters
+        function renderSemestersGrid() {
+            const grid = document.getElementById('step-semesters-grid');
+            grid.innerHTML = rgpvSemesters.map(item => {
+                const isActive = item.status === 'active';
+                return `
+                    <div onclick="openSemesterSubjects(${item.sem})" class="saas-card cursor-pointer rounded-3xl p-6 bg-white dark:bg-obsidian-900 border ${isActive ? 'border-indigo-500/50 dark:border-indigo-500/50 shadow-md' : 'border-slate-200 dark:border-slate-800 opacity-85'} flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-5">
+                                <span class="w-12 h-12 rounded-2xl ${isActive ? 'bg-brand-indigo text-white' : 'bg-slate-100 dark:bg-obsidian-800 text-slate-500'} font-heading font-extrabold text-base flex items-center justify-center">
+                                    S${item.sem}
+                                </span>
+                                <span class="px-3 py-1 rounded-full text-[11px] font-bold ${isActive ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-slate-100 dark:bg-obsidian-800 text-slate-500'}">
+                                    ${item.badge}
+                                </span>
+                            </div>
+                            <h3 class="font-heading font-extrabold text-xl text-slate-900 dark:text-white">${item.title}</h3>
+                            <p class="text-xs font-medium ${isActive ? 'text-brand-indigo dark:text-indigo-400' : 'text-slate-500'} mt-1">${item.count}</p>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold ${isActive ? 'text-slate-900 dark:text-white' : 'text-slate-400'}">
+                            <span>${isActive ? 'Open 5 Subjects' : 'Check Status'}</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Open Step 2: Subjects inside Selected Semester
+        function openSemesterSubjects(semNum) {
+            selectedSemNumber = semNum;
+            currentStudyStep = 'subjects';
+
+            document.getElementById('step-semesters-grid').classList.add('hidden');
+            document.getElementById('step-chapters-list').classList.add('hidden');
+            const subGrid = document.getElementById('step-subjects-grid');
+            subGrid.classList.remove('hidden');
+
+            document.getElementById('study-back-btn').classList.remove('hidden');
+            document.getElementById('breadcrumb-sem').classList.remove('hidden');
+            document.getElementById('breadcrumb-sem').querySelector('span').innerText = `Semester ${semNum}`;
+            document.getElementById('breadcrumb-sub').classList.add('hidden');
+            document.getElementById('study-view-title').innerText = `Semester ${semNum} — RGPV Subjects`;
+
+            // If Sem 1 or Sem 2, render all 5 subjects
+            if (rgpvSubjects[semNum]) {
+                subGrid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+                subGrid.innerHTML = rgpvSubjects[semNum].map((sub, idx) => `
+                    <div onclick="openSubjectChapters(${semNum}, ${idx})" class="saas-card cursor-pointer rounded-3xl p-7 bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-800 hover:border-brand-indigo flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-4">
+                                <span class="px-3 py-1 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-mono font-bold text-xs">${sub.code}</span>
+                                <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400"><i class="fas fa-unlock mr-1"></i>Unit 1 Free</span>
+                            </div>
+                            <h3 class="font-heading font-extrabold text-xl text-slate-900 dark:text-white mb-2">${sub.name}</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">${sub.desc}</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-brand-indigo">
+                            <span>View All 5 Units (PDF + Video)</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                // Semesters 3 to 8 Empty State
+                subGrid.className = "block";
+                subGrid.innerHTML = `
+                    <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-12 text-center border border-slate-200 dark:border-slate-800 max-w-2xl mx-auto">
+                        <div class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mx-auto mb-5">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <h3 class="font-heading font-extrabold text-2xl text-slate-900 dark:text-white">Semester ${semNum} Modules Under Preparation</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                            This section is reserved for higher semester notes and video lectures. Currently, complete study packages for <strong>Semester 1 (5 Subjects)</strong> and <strong>Semester 2 (5 Subjects)</strong> are live!
+                        </p>
+                        <div class="mt-7 flex justify-center gap-3">
+                            <button onclick="openSemesterSubjects(1)" class="px-5 py-2.5 rounded-xl bg-brand-indigo text-white text-xs font-bold">Go to Semester 1</button>
+                            <button onclick="openSemesterSubjects(2)" class="px-5 py-2.5 rounded-xl bg-slate-200 dark:bg-obsidian-800 text-slate-800 dark:text-white text-xs font-bold">Go to Semester 2</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Open Step 3: 5 Chapters inside Selected Subject (Unit 1 Unlocked, Units 2-5 Locked with QR Gateway)
+        function openSubjectChapters(semNum, subIdx) {
+            const subject = rgpvSubjects[semNum][subIdx];
+            selectedSubjectObj = { semNum, subIdx, ...subject };
+            currentStudyStep = 'chapters';
+
+            document.getElementById('step-semesters-grid').classList.add('hidden');
+            document.getElementById('step-subjects-grid').classList.add('hidden');
+            const chapContainer = document.getElementById('step-chapters-list');
+            chapContainer.classList.remove('hidden');
+
+            document.getElementById('breadcrumb-sub').classList.remove('hidden');
+            document.getElementById('breadcrumb-sub').querySelector('span').innerText = subject.code;
+            document.getElementById('study-view-title').innerText = `${subject.code}: ${subject.name}`;
+
+            const unlockedList = JSON.parse(localStorage.getItem('zbg_unlocked_units') || '[]');
+            const unitPrice = localStorage.getItem('zbg_unit_price') || '15';
+
+            chapContainer.innerHTML = `
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-lg">
+                    <div class="p-6 sm:p-8 bg-slate-50 dark:bg-obsidian-800/50 border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs font-mono font-bold text-brand-indigo uppercase">${subject.code} • RGPV SYLLABUS</span>
+                            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mt-0.5">5 Complete Units — Handwritten PDFs & Video Lectures</h3>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full">
+                            <i class="fas fa-gift"></i>
+                            <span>Unit 1 is 100% Free for All Students</span>
+                        </div>
+                    </div>
+
+                    <div class="divide-y divide-slate-200 dark:divide-slate-800">
+                        ${subject.units.map((unitTitle, uIdx) => {
+                            const unitNumber = uIdx + 1;
+                            const chapterKey = `${subject.code}_U${unitNumber}`;
+                            const isUnlocked = (unitNumber === 1) || unlockedList.includes(chapterKey);
+
+                            if (isUnlocked) {
+                                return `
+                                    <div class="p-6 sm:px-8 flex flex-col lg:flex-row lg:items-center justify-between gap-5 hover:bg-slate-50/80 dark:hover:bg-obsidian-800/30 transition-colors">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-11 h-11 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-mono font-bold text-sm flex items-center justify-center shrink-0 mt-0.5">
+                                                U${unitNumber}
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center gap-2.5">
+                                                    <span class="px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold text-[10px] uppercase tracking-wider">
+                                                        ${unitNumber === 1 ? 'Free Preview Unlocked' : 'Purchased & Unlocked'}
+                                                    </span>
+                                                </div>
+                                                <h4 class="font-heading font-bold text-base sm:text-lg text-slate-900 dark:text-white mt-1">${unitTitle}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex flex-wrap items-center gap-3 pl-15 lg:pl-0 shrink-0">
+                                            <button onclick="openSamplePDF('${subject.code}', '${unitTitle.replace(/'/g, "")}')" class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-obsidian-800 hover:bg-brand-indigo hover:text-white text-slate-800 dark:text-slate-200 font-heading font-bold text-xs flex items-center gap-2 transition-all border border-slate-200 dark:border-slate-700">
+                                                <i class="fas fa-file-pdf text-red-500"></i>
+                                                <span>Download Notes PDF</span>
+                                            </button>
+                                            <a href="${YOUTUBE_CHANNEL_URL}" target="_blank" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-heading font-bold text-xs flex items-center gap-2 transition-all shadow-sm">
+                                                <i class="fab fa-youtube"></i>
+                                                <span>Watch Lecture</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                `;
+                            } else {
+                                return `
+                                    <div class="p-6 sm:px-8 flex flex-col lg:flex-row lg:items-center justify-between gap-5 bg-slate-50/40 dark:bg-obsidian-950/40">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-11 h-11 rounded-2xl bg-amber-500/15 text-amber-500 font-mono font-bold text-sm flex items-center justify-center shrink-0 mt-0.5">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2.5 py-0.5 rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold text-[10px] uppercase tracking-wider">
+                                                        Premium Module • ₹${unitPrice}
+                                                    </span>
+                                                </div>
+                                                <h4 class="font-heading font-bold text-base sm:text-lg text-slate-700 dark:text-slate-300 mt-1">${unitTitle}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex flex-wrap items-center gap-3 shrink-0">
+                                            <button onclick="openPaymentModal('${chapterKey}', '${subject.code}: ${subject.name}', 'Unit ${unitNumber} PDF & Video')" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-heading font-extrabold text-xs flex items-center gap-2 shadow-md transition-all">
+                                                <i class="fas fa-qrcode"></i>
+                                                <span>Unlock PDF & Video (₹${unitPrice})</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleStudyBack() {
+            if (currentStudyStep === 'chapters') {
+                openSemesterSubjects(selectedSemNumber);
+            } else {
+                resetStudyHierarchy();
+            }
+        }
+
+        function resetStudyHierarchy() {
+            currentStudyStep = 'semesters';
+            document.getElementById('step-semesters-grid').classList.remove('hidden');
+            document.getElementById('step-subjects-grid').classList.add('hidden');
+            document.getElementById('step-chapters-list').classList.add('hidden');
+            document.getElementById('study-back-btn').classList.add('hidden');
+            document.getElementById('breadcrumb-sem').classList.add('hidden');
+            document.getElementById('breadcrumb-sub').classList.add('hidden');
+            document.getElementById('study-view-title').innerText = "Select Your B.Tech Semester";
+        }
+
+        // Open Sample Note Viewer Modal / Tab when student clicks Download PDF on an unlocked unit
+        function openSamplePDF(code, title) {
+            showToast(`Opening ${code} (${title}) PDF Notes...`);
+            // Generates a clean printable study sheet window if real Google Drive link isn't replaced yet
+            const win = window.open('', '_blank');
+            if (win) {
+                win.document.write(`
+                    <html><head><title>${code} - ${title} | Zeta Beta G Notes</title>
+                    <style>body{font-family:sans-serif;padding:40px;max-width:800px;margin:auto;line-height:1.6;color:#0f172a;} .box{border:2px solid #6366f1;padding:24px;border-radius:16px;background:#f8fafc;}</style>
+                    </head><body>
+                    <div class="box">
+                        <h1>ZETA BETA G — Official B.Tech Notes</h1>
+                        <h2>${code}: ${title}</h2>
+                        <p><strong>University:</strong> RGPV / LNCT Curriculum</p>
+                        <hr>
+                        <p><em>Tip for Website Owner:</em> You can link your Google Drive PDF URL here inside the <code>openSamplePDF</code> function or directly inside the subject object.</p>
+                        <p><a href="${YOUTUBE_CHANNEL_URL}" target="_blank">Watch the companion video explanation on @zetabeta_g YouTube Channel &rarr;</a></p>
+                    </div>
+                    </body></html>
+                `);
+            }
+        }
+
+        // 3. UPI QR Payment Gateway Modal Functions
+        function getDefaultQRImage(upiId, price) {
+            const customQR = localStorage.getItem('zbg_custom_qr');
+            if (customQR) return customQR;
+            const upiUri = encodeURIComponent(`upi://pay?pa=${upiId}&pn=ZetaBetaG&am=${price}&cu=INR`);
+            return `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${upiUri}`;
+        }
+
+        function openPaymentModal(chapterKey, subjectName, unitLabel) {
+            pendingUnlockChapterKey = chapterKey;
+            const upiId = localStorage.getItem('zbg_upi_id') || 'zetabetag@upi';
+            const price = localStorage.getItem('zbg_unit_price') || '15';
+
+            document.getElementById('pay-modal-unit-title').innerText = `Unlock ${unitLabel}`;
+            document.getElementById('pay-modal-subject-name').innerText = subjectName;
+            document.getElementById('pay-modal-price').innerText = `₹${price}`;
+            document.getElementById('display-upi-id').innerText = upiId;
+            document.getElementById('payment-qr-img').src = getDefaultQRImage(upiId, price);
+            document.getElementById('utr-input').value = '';
+            document.getElementById('pay-error-msg').classList.add('hidden');
+
+            const modal = document.getElementById('payment-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
         function closePaymentModal() {
-            document.getElementById('paymentModal').style.display = 'none';
+            const modal = document.getElementById('payment-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
-    </script>
-</body>
-</html>
+
+        function verifyAndUnlockChapter() {
+            const val = document.getElementById('utr-input').value.trim();
+            const masterPass = localStorage.getItem('zbg_passcode') || 'ZBG2026';
+
+            // Valid if 12-digit UTR number OR matches secret unlock passcode
+            const isTwelveDigitUTR = /^[0-9]{12}$/.test(val);
+            if (isTwelveDigitUTR || val.toUpperCase() === masterPass.toUpperCase()) {
+                const unlockedList = JSON.parse(localStorage.getItem('zbg_unlocked_units') || '[]');
+                if (!unlockedList.includes(pendingUnlockChapterKey)) {
+                    unlockedList.push(pendingUnlockChapterKey);
+                    localStorage.setItem('zbg_unlocked_units', JSON.stringify(unlockedList));
+                }
+                closePaymentModal();
+                openSubjectChapters(selectedSubjectObj.semNum, selectedSubjectObj.subIdx);
+                showToast("Payment verified! Chapter unlocked permanently.");
+            } else {
+                document.getElementById('pay-error-msg').classList.remove('hidden');
+            }
+        }
+
+        // 4. Owner / Admin Customizer Functions
+        function openAdminModal() {
+            document.getElementById('admin-upi-input').value = localStorage.getItem('zbg_upi_id') || 'zetabetag@upi';
+            document.getElementById('admin-price-input').value = localStorage.getItem('zbg_unit_price') || '15';
+            document.getElementById('admin-passcode-input').value = localStorage.getItem('zbg_passcode') || 'ZBG2026';
+            const modal = document.getElementById('admin-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleCustomQRUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem('zbg_custom_qr', e.target.result);
+                showToast("Custom UPI QR image uploaded!");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveAdminSettings() {
+            const upi = document.getElementById('admin-upi-input').value.trim() || 'zetabetag@upi';
+            const price = document.getElementById('admin-price-input').value.trim() || '15';
+            const pass = document.getElementById('admin-passcode-input').value.trim() || 'ZBG2026';
+
+            localStorage.setItem('zbg_upi_id', upi);
+            localStorage.setItem('zbg_unit_price', price);
+            localStorage.setItem('zbg_passcode', pass);
+
+            closeAdminModal();
+            if (currentStudyStep === 'chapters' && selectedSubjectObj) {
+                openSubjectChapters(selectedSubjectObj.semNum, selectedSubjectObj.subIdx);
+            }
+            showToast("Owner payment & QR settings saved!");
+        }
+
+        function resetAllUnlockedChapters() {
+            localStorage.removeItem('zbg_unlocked_units');
+            closeAdminModal();
+            if (currentStudyStep === 'chapters' && selectedSubjectObj) {
+                openSubjectChapters(selectedSubjectObj.semNum, selectedSubjectObj.subIdx);
+            }
+            showToast("All locked chapters reset for testing!");
+        }
+
+        // 5. YouTube Lecture Hub Data & Search
+        const youtubeLectures = [
+            { title: "Engineering Chemistry BT-101: Water Analysis & EDTA Method", subject: "BT-101 Chemistry", duration: "28:15", tag: "Semester 1" },
+            { title: "Engineering Mathematics-I BT-102: Matrices, Rank & Eigenvalues", subject: "BT-102 Maths-I", duration: "35:40", tag: "Semester 1" },
+            { title: "BEEE BT-104: Kirchhoff's Laws (KVL & KCL) & AC Fundamentals", subject: "BT-104 BEEE", duration: "31:10", tag: "Semester 1" },
+            { title: "Engineering Physics BT-201: Schrödinger Wave Equation & Lasers", subject: "BT-201 Physics", duration: "29:50", tag: "Semester 2" },
+            { title: "Mathematics-II BT-202: Ordinary Differential Equations Full One-Shot", subject: "BT-202 Maths-II", duration: "42:00", tag: "Semester 2" },
+            { title: "Basic Computer Engineering BT-205: OOPS Concepts & C++ Fundamentals", subject: "BT-205 BCE", duration: "26:45", tag: "Semester 2" }
+        ];
+
+        function renderYouTubeLectures(list = youtubeLectures) {
+            const grid = document.getElementById('yt-videos-grid');
+            grid.innerHTML = list.map(v => `
+                <div class="saas-card bg-white dark:bg-obsidian-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 relative flex items-center justify-center p-6">
+                            <div class="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center text-xl shadow-xl">
+                                <i class="fas fa-play ml-0.5"></i>
+                            </div>
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-white text-[10px] font-bold">${v.tag}</span>
+                            <span class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/80 text-white font-mono text-[11px]">${v.duration}</span>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold text-brand-indigo">${v.subject}</span>
+                            <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white mt-1 leading-snug">${v.title}</h3>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <a href="${YOUTUBE_CHANNEL_URL}" target="_blank" class="w-full py-3 rounded-xl bg-slate-100 dark:bg-obsidian-800 hover:bg-red-600 hover:text-white text-slate-800 dark:text-white font-heading font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                            <i class="fab fa-youtube"></i>
+                            <span>Watch on @zetabeta_g</span>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterYouTubeLectures() {
+            const q = document.getElementById('yt-search-input').value.toLowerCase();
+            const filtered = youtubeLectures.filter(item => item.title.toLowerCase().includes(q) || item.subject.toLowerCase().includes(q));
+            renderYouTubeLectures(filtered);
+        }
+
+        function searchDirectlyOnYouTube() {
+            window.open(YOUTUBE_CHANNEL_URL, '_blank');
+        }
+
+        // 6. Campus & Event Gallery (Garba Night, Friends, Custom Upload)
+        const defaultGallerySlides = [
+            {
+                tag: "Cultural Fest",
+                title: "LNCT Garba Night Celebration",
+                desc: "Traditional Garba evening filled with music, energy, and college batchmates.",
+                img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80"
+            },
+            {
+                tag: "College Squad",
+                title: "B.Tech Batchmates & Campus Life",
+                desc: "Collaborating on labs, assignments, and build
